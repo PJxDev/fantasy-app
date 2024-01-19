@@ -1,23 +1,36 @@
 {
-  "name": "fantasy-app",
+  "name": "carta-reyes-2",
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "postinstall": "prisma generate",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
+    "@prisma/client": "^5.6.0",
+    "axios": "^1.6.2",
+    "bcrypt": "5.1.0",
+    "cookie": "0.5.0",
+    "cookies-next": "^4.1.0",
+    "jose": "4.14.4",
+    "jsonwebtoken": "9.0.0",
+    "next": "14.0.3",
     "react": "^18",
     "react-dom": "^18",
-    "next": "14.1.0"
+    "react-slick": "^0.29.0",
+    "slick-carousel": "^1.8.1"
   },
   "devDependencies": {
+    "@types/node": "20.10.4",
+    "@types/react": "18.2.42",
     "autoprefixer": "^10.0.1",
-    "postcss": "^8",
-    "tailwindcss": "^3.3.0",
     "eslint": "^8",
-    "eslint-config-next": "14.1.0"
+    "eslint-config-next": "14.0.3",
+    "postcss": "^8",
+    "prisma": "^5.7.0",
+    "tailwindcss": "^3.3.0"
   }
 }
