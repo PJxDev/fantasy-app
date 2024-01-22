@@ -9,10 +9,8 @@ import useProduct from '../components/hooks/useProduct'
 const Appcontext = createContext()
 
 export function Appwrapper({ children }) {
-  const { letter, setLetter } = useCarta()
   const { getModal, setModal } = useModal()
   const { getUser, setUser } = useUser()
-  const { getProduct, setProduct } = useProduct()
 
   // FLAGS
   const [dataChanged, setDataChanged] = useState(true)
@@ -25,16 +23,7 @@ export function Appwrapper({ children }) {
           user: {
             nombre: getUser.nombreUser,
             id: getUser.userId,
-            carta: getUser.userCarta,
             getByName: getUser.getUserByName
-          },
-          product: {
-            get: getProduct.product,
-            editting: getProduct.productEditting
-          },
-          carta: {
-            value: letter,
-            get: setLetter.getCartaById
           },
           usersNames: {
             value: getUser.usersNames,
@@ -46,8 +35,7 @@ export function Appwrapper({ children }) {
             login: setUser.loginUser,
             logout: setUser.logoutUser,
             nombre: setUser.setNombreUser,
-            id: setUser.setUserId,
-            carta: setUser.setUserCarta
+            id: setUser.setUserId
           },
           usersNames: setUser.setUsersNames,
           modal: {
@@ -59,16 +47,6 @@ export function Appwrapper({ children }) {
             toLogin: setModal.toLogin,
             toRegister: setModal.toRegister,
             toReset: setModal.toReset
-          },
-          product: {
-            create: setProduct.creatingProduct,
-            update: setProduct.updateProduct,
-            delete: setProduct.deleteProduct,
-            editting: setProduct.setProductEditting
-          },
-          carta: {
-            set: setLetter.settingCarta,
-            reset: setLetter.resetCarta
           },
           flag: {
             dataChanged: setDataChanged,

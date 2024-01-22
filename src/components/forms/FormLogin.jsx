@@ -25,7 +25,10 @@ export default function FormLogin() {
 
     try {
       set.flag.isLoading(true)
-      const value = await axios.post('/api/auth/login', dataForm)
+      const value = await axios.post('/api/auth/login', {
+        ...dataForm,
+        email: dataForm.email.toLowerCase()
+      })
       setResult()
       set.user.login()
       set.modal.close()
@@ -45,14 +48,6 @@ export default function FormLogin() {
       className='flex flex-col justify-center items-center gap-4 h-full'
       onSubmit={handleSubmit}
     >
-      <button
-        type='button'
-        onClick={() => {
-          console.log(result)
-        }}
-      >
-        Button
-      </button>
       <input
         type='email'
         name='email'

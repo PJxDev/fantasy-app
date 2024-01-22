@@ -7,8 +7,12 @@ module.exports = {
   ],
   theme: {
     fontFamily: {
-      header: ['"Pacifico", sans-serif'],
-      body: ['"Shadows Into Light", sans-serif']
+      header: [
+        '"Fira Sans", system-ui, -apple-system, BlinkMacSystemFont, Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif'
+      ],
+      body: [
+        '"Fira Sans", system-ui, -apple-system, BlinkMacSystemFont, Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif'
+      ]
     },
     extend: {
       keyframes: {

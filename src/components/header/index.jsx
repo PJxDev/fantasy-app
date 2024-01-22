@@ -5,6 +5,7 @@ import FormRegister from '../forms/FormRegister'
 import Loading from '../loading'
 
 import closeIcon from '../../../public/closeIcon'
+import logo from '../../../public/assets/img/logotipo.png'
 
 import { useAppContext } from '../../context/index'
 import { useRouter } from 'next/navigation'
@@ -27,24 +28,44 @@ const Header = () => {
 
   return (
     <>
-      <header className=' text-black | font-header | pb-8 | flex | flex-col | justify-between | items-center | gap-7'>
-        <nav className='bg-orange-300/75  p-4 | w-full flex flex-row justify-between gap-2'>
-          <ul className='flex flex-row justify-end gap-4'>
-            <li className=' flex justify-center items-center rounded-full bg-slate-50 w-auto p-4 overflow-hidden text-xl | sm:text-2xl | transition-all | hover:scale-110 hover:cursor-pointer'>
-              <a href='/'>Inicio</a>
-            </li>
+      <header className=' text-slate-50 | font-header | pb-8 | flex | flex-col | justify-between | items-center | gap-7 | font-bold'>
+        <nav className=' bg-slate-950/70 p-4 | w-full flex flex-row justify-between gap-2'>
+          <ul className='flex flex-row justify-end gap-8'>
+            {flag.isLogged ? (
+              <>
+                <li className=' flex justify-center items-center rounded-full w-auto p-4 overflow-hidden text-xl | sm:text-2xl | transition-all | hover:scale-110 hover:cursor-pointer'>
+                  <a href='/'>
+                    {' '}
+                    <img src={logo.src} alt='FANTASY APP' className=' w-32 ' />
+                  </a>
+                </li>
+                <li className='flex justify-center items-center  rounded-full | w-auto p-4 overflow-hidden text-xl | sm:text-2xl | transition-all | hover:scale-110 hover:cursor-pointer'>
+                  <a>Koiniela</a>
+                </li>
+                <li className='flex justify-center items-center  rounded-full | w-auto p-4 overflow-hidden text-xl | sm:text-2xl | transition-all | hover:scale-110 hover:cursor-pointer'>
+                  <a>Liga</a>
+                </li>
+              </>
+            ) : (
+              <>
+                <li className=' flex justify-center items-center rounded-full w-auto p-4 overflow-hidden text-xl | sm:text-2xl | transition-all | hover:scale-110 hover:cursor-pointer'>
+                  <a href='/'>Inicio</a>
+                </li>
+              </>
+            )}
           </ul>
+
           <ul className='flex flex-row justify-end gap-2 | sm:gap-4'>
             {flag.isLogged ? (
               <>
-                <li className=' rounded-full | bg-red-500 | text-slate-50 | w-auto p-4 overflow-hidden text-xl | sm:text-2xl | transition-all | hover:scale-110 hover:bg-red-400 hover:cursor-pointer'>
+                <li className='flex justify-center items-center  rounded-full | w-auto p-4 overflow-hidden text-xl | sm:text-2xl | transition-all | hover:scale-110 hover:cursor-pointer'>
                   <button onClick={handlerLogout}>Cerrar Sesión</button>
                 </li>
               </>
             ) : (
               <>
                 <li
-                  className='flex justify-center items-center text-center rounded-full bg-green-200 w-auto p-4 overflow-hidden text-xl | sm:text-2xl | transition-all | hover:scale-110 hover:bg-green-100 hover:cursor-pointer'
+                  className='flex justify-center items-center text-center rounded-full w-auto p-4 overflow-hidden text-xl | sm:text-2xl | transition-all | hover:scale-110 hover:cursor-pointer'
                   onClick={() => {
                     set.modal.open()
                     set.modal.toLogin()
@@ -52,25 +73,11 @@ const Header = () => {
                 >
                   Iniciar Sesión
                 </li>
-                <li
-                  className=' flex justify-center items-center rounded-full bg-blue-200 w-auto p-4 overflow-hidden text-xl | sm:text-2xl | transition-all | hover:scale-110 hover:bg-blue-100 hover:cursor-pointer'
-                  onClick={() => {
-                    set.modal.open()
-                    set.modal.toRegister()
-                  }}
-                >
-                  Registarse
-                </li>
               </>
             )}
           </ul>
         </nav>
-        <h1 className='text-4xl | text-center'>Queridos Reyes Magos ...</h1>
-        <img
-          src='https://fotografias.lasexta.com/clipping/cmsimages01/2021/01/05/DAE96D97-478A-4926-9ED6-CEC0E49AE108/default.jpg?crop=1300,731,x0,y12&width=1900&height=1069&optimize=low'
-          alt='imagen de los tres reyes magos'
-          className='w-11/12 | h-full | m-4 | object-contain | object-center | rounded-2xl | md:object-cover md:h-[30rem]'
-        />
+        {flag.isLogged ? <></> : <img src={logo.src} alt='FANTASY APP' />}
       </header>
       {flag.isOpen && (
         <div className='fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center z-10'>
