@@ -40,10 +40,13 @@ const Header = () => {
                   </a>
                 </li>
                 <li className='flex justify-center items-center  rounded-full | w-auto p-4 overflow-hidden text-xl | sm:text-2xl | transition-all | hover:scale-110 hover:cursor-pointer'>
-                  <a>Koiniela</a>
+                  <a href='/roster'>Roster</a>
                 </li>
                 <li className='flex justify-center items-center  rounded-full | w-auto p-4 overflow-hidden text-xl | sm:text-2xl | transition-all | hover:scale-110 hover:cursor-pointer'>
-                  <a>Liga</a>
+                  <a href='/liga'>Liga</a>
+                </li>
+                <li className='flex justify-center items-center  rounded-full | w-auto p-4 overflow-hidden text-xl | sm:text-2xl | transition-all | hover:scale-110 hover:cursor-pointer'>
+                  <a href='/salonDeLaFama'>Salon de la Fama</a>
                 </li>
               </>
             ) : (

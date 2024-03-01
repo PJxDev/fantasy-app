@@ -15,12 +15,7 @@ async function checkUser({ req }) {
   console.log(email, password)
 
   try {
-    // const exists = await prisma.users.findUnique({
-    //   where: {
-    //     email
-    //   }
-    // })
-    const exists = await prisma.users.findFirst({
+    const exists = await prisma.usuarios.findFirst({
       where: {
         email
       }

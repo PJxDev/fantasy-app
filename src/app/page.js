@@ -3,6 +3,7 @@
 import Header from '../components/header/index'
 import Footer from '../components/footer/index.jsx'
 import Loading from '../components/loading'
+import { config } from '../lib/config.js'
 
 import { getCookie, hasCookie } from 'cookies-next'
 import { useAppContext } from '../context'
@@ -10,23 +11,24 @@ import { decodeJwt } from 'jose'
 import { useEffect, useState } from 'react'
 
 const data = [
-  { nombre: 'Pedro', puntos: 0 },
-  { nombre: 'Andres', puntos: 3 },
-  { nombre: 'Ruben', puntos: 6 },
-  { nombre: 'Ale', puntos: -2 }
+  { nombre: 'Pedro', puntos: 1000 },
+  { nombre: 'Andres', puntos: 1030 },
+  { nombre: 'Ruben', puntos: 1600 },
+  { nombre: 'Ale', puntos: 2000 }
 ]
+
 const data2 = {
-  year: 2024,
+  year: '2024',
   season: 'Winter',
   jornada: 1,
   games: [
     {
       game: 'MDK vs G2',
-      result: 'MDK WINS'
+      result: 'MDK 🏆'
     },
     {
       game: 'TH vs GX',
-      result: 'GX WINS'
+      result: 'GX 🏆'
     },
     {
       game: 'SK vs BDS',
@@ -73,39 +75,41 @@ export default function Home() {
     <div className=' min-h-screen flex flex-col justify-between'>
       <Header />
       {flag.isLogged ? (
-        <section className='flex-1 grid grid-cols-2 justify-center items-center gap-2 p-4 text-slate-50 font-header | sm:gap-4'>
+        <section className='flex-1 grid grid-cols-3 justify-center items-center gap-2 p-4 text-slate-50 font-header | sm:gap-4'>
           <article className=' flex justify-center items-center rounded-md min-h-[10rem] h-full bg-blue-800/90 w-auto p-4 overflow-hidden text-xl text-center font-bold | sm:text-2xl transition-all | hover:bg-blue-600/90 hover:cursor-pointer '>
-            <a href={`/${values.user.nombre.toLowerCase()}`}>Koiniela</a>
+            <a
+              className='w-full h-full grid place-content-center'
+              href={`./roster`}
+            >
+              Roster
+            </a>
           </article>
           <article className=' flex justify-center items-center rounded-md min-h-[10rem] h-full bg-blue-800/90 w-auto p-4 overflow-hidden text-xl text-center font-bold | sm:text-2xl transition-all | hover:bg-blue-600/90 hover:cursor-pointer  '>
-            <a href={`/editor/${values.user.nombre}`}>Liga</a>
+            <a
+              className='w-full h-full grid place-content-center'
+              href={`./liga`}
+            >
+              Liga Actual
+            </a>
           </article>
-          <article className=' flex flex-col justify-center items-center rounded-md min-h-[10rem] h-full bg-yellow-600/90 w-auto p-4 overflow-hidden text-xl text-center font-bold | sm:text-2xl transition-all  '>
-            <h2 className='w-full'>Ranking</h2>
-            <ul className='w-1/2'>
-              {ranking.length > 0 ? (
-                ranking.map((el, idx) => {
-                  return (
-                    <li
-                      key={idx}
-                      className='flex flex-row justify-between w-full'
-                    >
-                      <h3>{el.nombre}</h3>
-                      <span>{el.puntos}</span>
-                    </li>
-                  )
-                })
-              ) : (
-                <></>
-              )}
-            </ul>
+          <article className=' flex flex-col justify-center items-center rounded-md min-h-[10rem] h-full bg-blue-800/90 w-auto p-4 overflow-hidden text-xl text-center font-bold | sm:text-2xl transition-all | hover:bg-blue-600/90 hover:cursor-pointer   '>
+            <a
+              className='w-full h-full grid place-content-center'
+              href={`./salonDeLaFama`}
+            >
+              Salón de la Fama
+            </a>
           </article>
-          <article className=' flex flex-col justify-center items-center rounded-md min-h-[10rem] h-full bg-yellow-800/90 w-auto p-4 overflow-hidden text-xl text-center font-bold | sm:text-2xl transition-all | '>
-            <h2 className='w-full'>PROX. JORNADA</h2>
+          <article className=' col-span-3 flex flex-col justify-center items-center rounded-md min-h-[10rem] h-full bg-slate-800/90 w-auto p-4 gap-4 overflow-hidden text-xl text-center font-bold | sm:text-2xl transition-all |  hover:bg-slate-700/90 hover:cursor-pointer  '>
             {games ? (
-              <>
+              <a
+                className='w-full h-full grid place-content-center'
+                href={`./liga/jornada/${games.jornada}`}
+              >
+                <h2 className='w-full'>PROX. JORNADA</h2>
+
                 <h3 className='w-full'>{`${games.season} - Jornada ${games.jornada}`}</h3>
-                <ul className=''>
+                <ul className='w-full max-w-md'>
                   {games.games.map((el, idx) => {
                     return (
                       <li
@@ -118,7 +122,7 @@ export default function Home() {
                     )
                   })}
                 </ul>
-              </>
+              </a>
             ) : (
               <></>
             )}

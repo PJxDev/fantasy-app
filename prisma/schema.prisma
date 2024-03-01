@@ -7,152 +7,114 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model users {
-  id              Int               @id(map: "users_pkey_1") @default(autoincrement())
-  nombre          String            @unique(map: "users_nombre_key_1")
-  password        String?
-  email           String?           @unique(map: "users_email_key_1")
-  contestaciones  contestaciones[]
-  jornadas_puntos jornadas_puntos[]
-  ranking         ranking?
-}
-
-model aciertos {
-  id              Int            @id(map: "aciertos_pk") @default(autoincrement())
-  contestacion_id Int
-  p1              Int?           @default(0)
-  p2              Int?           @default(0)
-  p3              Int?           @default(0)
-  p4              Int?           @default(0)
-  p5              Int?           @default(0)
-  p6              Int?           @default(0)
-  p7              Int?           @default(0)
-  p8              Int?           @default(0)
-  p9              Int?           @default(0)
-  p10             Int?           @default(0)
-  p11             Int?           @default(0)
-  p12             Int?           @default(0)
-  p13             Int?           @default(0)
-  p14             Int?           @default(0)
-  p15             Int?           @default(0)
-  contestaciones  contestaciones @relation(fields: [contestacion_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "aciertos_fk")
-}
-
-model contestaciones {
-  id          Int        @id(map: "contestaciones_pk") @default(autoincrement())
-  p1          String?    @db.VarChar
-  p2          String?    @db.VarChar
-  p3          String?    @db.VarChar
-  p4          String?    @db.VarChar
-  p5          String?    @db.VarChar
-  p6          String?    @db.VarChar
-  p7          String?    @db.VarChar
-  p8          String?    @db.VarChar
-  p9          String?    @db.VarChar
-  p10         String?    @db.VarChar
-  p11         String?    @db.VarChar
-  p12         String?    @db.VarChar
-  p13         String?    @db.VarChar
-  p14         String?    @db.VarChar
-  p15         String?    @db.VarChar
-  koiniela_id Int
-  user_id     Int
-  aciertos    aciertos[]
-  koinielas   koinielas  @relation(fields: [koiniela_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "contestaciones_koiniela_fk")
-  users       users      @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "contestaciones_user_fk")
-}
-
-model games {
-  id         Int      @id(map: "games_pk") @default(autoincrement())
-  jornada_id Int
-  team1      String   @db.VarChar
-  team2      String   @db.VarChar
-  winner     String?  @db.VarChar
-  gold       String?  @db.VarChar
-  drakes     String?  @db.VarChar
-  baron      String?  @db.VarChar
-  turrets    String?  @db.VarChar
-  kills      String?  @db.VarChar
-  mvp        String?  @db.VarChar
-  game       Int
-  jornadas   jornadas @relation(fields: [jornada_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "games_fk")
-}
-
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model jornadas {
-  id              Int               @id(map: "jornadas_pk") @default(autoincrement())
-  season          Int?
-  year            Int?
-  jornada         Int
-  games           games[]
-  jornadas_puntos jornadas_puntos[]
-  koinielas       koinielas?
+  jornada_id Int     @id(map: "jornadas_pk") @default(autoincrement())
+  anno       String  @db.VarChar
+  season     Int
+  jornada    Int
+  fecha      String? @db.VarChar
 }
 
-model jornadas_puntos {
-  id         Int      @id(map: "jornadas_puntos_pk") @default(autoincrement())
-  jornada_id Int
+model puntos {
+  puntos_id  Int  @id(map: "puntos_pk") @default(autoincrement())
   user_id    Int
+  jornada_id Int
   puntos     Int?
-  jornadas   jornadas @relation(fields: [jornada_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "jornadas_puntos_jornada_fk")
-  users      users    @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "jornadas_puntos_user_fk")
-
-  @@map("jornadas-puntos")
-}
-
-model koinielas {
-  id             Int              @id(map: "koinielas_pk") @default(autoincrement())
-  jornada_id     Int              @unique(map: "koinielas_jornada")
-  p1             Int?
-  p2             Int?
-  p3             Int?
-  p4             Int?
-  p5             Int?
-  p6             Int?
-  p7             Int?
-  p8             Int?
-  p9             Int?
-  p10            Int?
-  p11            Int?
-  p12            Int?
-  p13            Int?
-  p14            Int?
-  p15            Int?
-  contestaciones contestaciones[]
-  jornadas       jornadas         @relation(fields: [jornada_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "koinielas_jornada_fk")
-  respuestas     respuestas[]
-}
-
-/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
-model preguntas {
-  id         Int          @id(map: "preguntas_pk") @default(autoincrement())
-  tipo       Int          @default(0)
-  riesgo     Int
-  pregunta   String?      @db.VarChar
-  respuestas respuestas[]
 }
 
 model ranking {
-  id      Int   @id(map: "ranking_pk") @default(autoincrement())
-  user_id Int   @unique(map: "ranking_user_un")
-  puntos  Int?
-  users   users @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "ranking_user_fk")
+  ranking_id Int    @id(map: "ranking_pk") @default(autoincrement())
+  user_id    Int
+  anno       String @db.VarChar
+  season     Int
+  puntos     Int    @default(0)
 }
 
-model respuestas {
-  id          Int       @id(map: "respuestas_pk") @default(autoincrement())
-  koiniela_id Int
-  pregunta_id Int
-  respuesta   String?   @db.VarChar
-  koinielas   koinielas @relation(fields: [koiniela_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "respuestas_koiniela_fk")
-  preguntas   preguntas @relation(fields: [pregunta_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "respuestas_pegunta_fk")
+model usuarios {
+  user_id  Int     @id(map: "usuarios_pk") @default(autoincrement())
+  name     String  @db.VarChar
+  email    String  @unique(map: "usuarios_email") @db.VarChar
+  password String? @db.VarChar
 }
 
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
-model Jornadas {
-  id     BigInt
-  season String @db.VarChar(255)
-  year   BigInt
+model estadisticas {
+  stats_id   Int  @id(map: "estadisticas_pk") @default(autoincrement())
+  player_id  Int
+  jornada_id Int
+  game_id    Int
+  kills      Int?
+  deaths     Int?
+  assists    Int?
+}
 
-  @@ignore
+model estadisticasteams {
+  statsteams_id Int @id(map: "estadisticasteams_pk") @default(autoincrement())
+  team_id       Int
+  jornada_id    Int
+  game_id       Int
+  victory       Int @default(0)
+  drakes        Int @default(0)
+  heralds       Int @default(0)
+  baron         Int @default(0)
+  inhibs        Int @default(0)
+  turrets       Int @default(0)
+  kills         Int @default(0)
+  gold          Int @default(0)
+}
+
+model games {
+  game_id    Int  @id(map: "games_pk") @default(autoincrement())
+  jornada_id Int
+  team_1     Int?
+  team_2     Int?
+  winner     Int?
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model objetos {
+  obj_id      Int     @id(map: "objetos_pk") @default(autoincrement())
+  name        String  @db.VarChar
+  tipo        Int
+  rareza      Int
+  descripcion String? @db.VarChar
+  puntos      Int
+}
+
+model players {
+  player_id Int     @id(map: "players_pk") @default(autoincrement())
+  name      String  @db.VarChar
+  foto      String? @db.VarChar
+}
+
+model rosters {
+  roster_id  Int     @id(map: "rosters_pk") @default(autoincrement())
+  user_id    Int
+  jornada_id Int
+  top_id     Int?
+  top_obj    String? @db.VarChar
+  jun_id     Int?
+  jun_obj    String? @db.VarChar
+  mid_id     Int?
+  mid_obj    String? @db.VarChar
+  adc_id     Int?
+  adc_obj    String? @db.VarChar
+  sup_id     Int?
+  sup_obj    String? @db.VarChar
+  coach_id   Int?
+  coach_obj  String? @db.VarChar
+  event_obj  String? @db.VarChar
+}
+
+model teams {
+  team_id   Int     @id(map: "teams_pk") @default(autoincrement())
+  name      String  @db.VarChar
+  shortname String  @db.VarChar
+  logo      String? @db.VarChar
+  top_id    Int?
+  jun_id    Int?
+  mid_id    Int?
+  adc_id    Int?
+  sup_id    Int?
+  coach_id  Int?
 }
